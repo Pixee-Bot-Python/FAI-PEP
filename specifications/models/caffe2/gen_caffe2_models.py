@@ -174,7 +174,7 @@ def genOneModelMeta(args, model_name, model):
 
 def downloadFile(location, target):
     logger.info("Downloading {}".format(location))
-    r = requests.get(location)
+    r = requests.get(location, timeout=60)
     if r.status_code == 200:
         target_dir = os.path.dirname(target)
         if not os.path.isdir(target_dir):
