@@ -19,10 +19,9 @@ import json
 import os
 import shutil
 import tempfile
-
-import requests
 from utils.custom_logger import getLogger
 from utils.utilities import deepMerge, deepReplace
+from security import safe_requests
 
 
 COPY_THRESHOLD = 6442450944  # 6 GB
@@ -246,7 +245,7 @@ class BenchmarkCollector:
         if location[0:4] == "http":
             abs_name = destination_name
             getLogger().info("Downloading {}".format(location))
-            r = requests.get(location)
+            r = safe_requests.get(location)
             if r.status_code == 200:
                 with open(destination_name, "wb") as f:
                     f.write(r.content)
