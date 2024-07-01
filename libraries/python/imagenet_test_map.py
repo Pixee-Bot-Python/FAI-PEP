@@ -16,7 +16,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import argparse
 import os
-import random
+import secrets
 
 
 parser = argparse.ArgumentParser(description="Map the images with labels")
@@ -94,13 +94,13 @@ class ImageLableMap:
                 for filename in files
             ]
             if self.args.shuffle:
-                random.shuffle(images_map)
+                secrets.SystemRandom().shuffle(images_map)
             if self.args.limit_per_category:
                 images_map = images_map[: self.args.limit_per_category]
 
             all_images_map.extend(images_map)
         if self.args.shuffle:
-            random.shuffle(all_images_map)
+            secrets.SystemRandom().shuffle(all_images_map)
         if self.args.limit_files:
             all_images_map = all_images_map[: self.args.limit_files]
 

@@ -16,7 +16,6 @@ import abc
 import ast
 import json
 import os
-import random
 import re
 import shutil
 from copy import deepcopy
@@ -41,6 +40,7 @@ from utils.utilities import (
     getModelName,
     getString,
 )
+import secrets
 
 
 class FrameworkBase:
@@ -275,7 +275,7 @@ class FrameworkBase:
             if OMP_NUM_THREADS > 0:
                 platform_args["env"]["OMP_NUM_THREADS"] = OMP_NUM_THREADS
             # Randomly select one cpu core from logic cpu #4 to #13.
-            cpu_core = test.get("cpu-list", random.randint(5, 14))
+            cpu_core = test.get("cpu-list", secrets.SystemRandom().randint(5, 14))
             if isinstance(test["commands"], list) and cpu_core > 0:
                 test["commands"][-1] = " ".join(
                     ["taskset", "--cpu-list", str(cpu_core), test["commands"][-1]]
