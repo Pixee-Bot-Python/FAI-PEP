@@ -23,7 +23,6 @@ import tempfile
 import threading
 from collections import defaultdict
 from getpass import getuser
-from random import randint
 from threading import Lock
 
 import pkg_resources
@@ -42,6 +41,7 @@ from utils.utilities import (
     parse_kwarg,
     unpackAdhocFile,
 )
+import secrets
 
 parser = argparse.ArgumentParser(description="Run the benchmark remotely")
 parser.add_argument(
@@ -448,7 +448,7 @@ class RunRemote:
         user_identifier = (
             int(self.args.user_identifier)
             if self.args.user_identifier
-            else randint(1, 1000000000000000)
+            else secrets.SystemRandom().randint(1, 1000000000000000)
         )
         user = getuser() if not self.args.user_string else self.args.user_string
         hashes = self.args.hashes
