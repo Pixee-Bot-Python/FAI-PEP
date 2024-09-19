@@ -2,13 +2,12 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import os
-
-import requests
 from download_benchmarks.file_downloader_base import (
     FileDownloaderBase,
     registerFileDownloader,
 )
 from utils.custom_logger import getLogger
+from security import safe_requests
 
 
 class DjangoFileDownloader(FileDownloaderBase):
@@ -25,7 +24,7 @@ class DjangoFileDownloader(FileDownloaderBase):
         if not os.path.exists(basedir):
             os.makedirs(basedir)
 
-        r = requests.get(location)
+        r = safe_requests.get(location)
         if r.status_code == 200:
             with open(path, "wb") as f:
                 f.truncate(0)
