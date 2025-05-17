@@ -13,12 +13,12 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import argparse
 import logging
 import os
-import pickle
 import sys
 
 import numpy as np
 from json_dataset import JsonDataset
 from json_dataset_evaluator import evaluateBoxes, evaluateMasks
+import fickling
 
 FORMAT = "%(levelname)s %(asctime)s %(filename)s:%(lineno)4d: %(message)s"
 logging.basicConfig(
@@ -114,7 +114,7 @@ class TestEngine:
                 self.args.input_dir, self.args.result_prefix + "_" + str(i) + ".pkl"
             )
             with open(filename, "r") as f:
-                results = pickle.load(f)
+                results = fickling.load(f)
             for ret in results:
                 self.extendResultsWithClasses(
                     self.index, self.all_boxes, (ret["boxes"], ret["classids"])
