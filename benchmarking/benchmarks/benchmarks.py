@@ -246,7 +246,7 @@ class BenchmarkCollector:
         if location[0:4] == "http":
             abs_name = destination_name
             getLogger().info("Downloading {}".format(location))
-            r = requests.get(location)
+            r = requests.get(location, timeout=60)
             if r.status_code == 200:
                 with open(destination_name, "wb") as f:
                     f.write(r.content)

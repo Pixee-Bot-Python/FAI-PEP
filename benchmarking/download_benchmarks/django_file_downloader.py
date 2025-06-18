@@ -25,7 +25,7 @@ class DjangoFileDownloader(FileDownloaderBase):
         if not os.path.exists(basedir):
             os.makedirs(basedir)
 
-        r = requests.get(location)
+        r = requests.get(location, timeout=60)
         if r.status_code == 200:
             with open(path, "wb") as f:
                 f.truncate(0)
