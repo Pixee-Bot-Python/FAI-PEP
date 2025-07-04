@@ -17,8 +17,7 @@ import json
 import logging
 import os
 import shutil
-
-import requests
+from security import safe_requests
 
 parser = argparse.ArgumentParser(description="Perform one benchmark run")
 parser.add_argument("--model", help="Specified the model to generate the meta data.")
@@ -174,7 +173,7 @@ def genOneModelMeta(args, model_name, model):
 
 def downloadFile(location, target):
     logger.info("Downloading {}".format(location))
-    r = requests.get(location)
+    r = safe_requests.get(location)
     if r.status_code == 200:
         target_dir = os.path.dirname(target)
         if not os.path.isdir(target_dir):
